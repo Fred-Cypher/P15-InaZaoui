@@ -5,6 +5,10 @@
         <h1>Medias</h1>
         <a href="{{ path('admin_media_index') }}" class="btn btn-primary">Retour</a>
     </div>
+    {{ form_errors(form) }}
+    {% for child in form.children %}
+        {{ form_errors(child) }}
+    {% endfor %}
     {{ form_start(form) }}
         {{ form_row(form.user) }}
         {% if is_granted('ROLE_ADMIN') %}

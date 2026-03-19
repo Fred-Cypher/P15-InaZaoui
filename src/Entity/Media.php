@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Media
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: "SEQUENCE")]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -21,7 +21,7 @@ class Media
     private ?Album $album = null;
 
     #[ORM\Column]
-    private string $path;
+    private ?string $path = null;
 
     #[ORM\Column]
     private string $title;

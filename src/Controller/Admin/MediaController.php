@@ -6,6 +6,7 @@ use App\Entity\Media;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -42,24 +43,36 @@ class MediaController extends AbstractController
     }
 
     #[Route("/admin/media/add", name: "admin_media_add")]
-    public function add(Request $request): Response
+    public function add(
+        Request $request,
+            ): Response
     {
         $media = new Media();
         $form = $this->createForm(MediaType::class, $media, ['is_admin' => $this->isGranted('ROLE_ADMIN')]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->isGranted('ROLE_ADMIN')) {
-                $media->setUser($this->getUser());
+            /** @var UploadedFile $file */
+            $file = $form->get('file')->getData();
+
+            if ($file) {
+                if (!$this->isGranted('ROLE_ADMIN')) {
+                    $media->setUser($this->getUser());
+                }
+
+                $newFileName = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('kernel.project_dir') . '/public/uploads', $newFileName);
+                $media->setPath('uploads/' . $newFileName);
+
+                $this->em->persist($media);
+                $this->em->flush();
+
+                $this->addFlash('success', 'L\'image a bien été ajoutée');
+                return $this->redirectToRoute('admin_media_index');
+            } else {
+                $this->addFlash('danger', 'Le fichier image est obligatoire');
             }
-            $media->setPath('uploads/' . md5(uniqid()) . '.' . $media->getFile()->guessExtension());
-            $media->getFile()->move('uploads/', $media->getPath());
-            $this->em->persist($media);
-            $this->em->flush();
-
-            return $this->redirectToRoute('admin_media_index');
         }
-
         return $this->render('admin/media/add.html.twig', ['form' => $form->createView()]);
     }
 
