@@ -33,7 +33,7 @@ class MediaController extends AbstractController
             25,
             25 * ($page - 1)
         );
-        $total = $this->em->getRepository(Media::class)->count([]);
+        $total = $this->em->getRepository(Media::class)->count($criteria);
 
         return $this->render('admin/media/index.html.twig', [
             'medias' => $medias,
@@ -77,13 +77,23 @@ class MediaController extends AbstractController
     }
 
     #[Route("/admin/media/delete/{id}", name: "admin_media_delete")]
-    public function delete(int $id): Response
+    public function delete(Media $media): Response
     {
-        $media = $this->em->getRepository(Media::class)->find($id);
+        if(!$this->isGranted('ROLE_ADMIN') && !$media->getUser() !== $this->getUser()) {
+            $this->addFlash('danger', 'Action non autorisée : ce media ne vous appartient pas');
+            return $this->redirectToRoute('admin_media_index');
+        }
+
+        $filePath = $this->getParameter('kernel.project_dir') . '/public/uploads/' . $media->getPath();
+
         $this->em->remove($media);
         $this->em->flush();
-        unlink($media->getPath());
 
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        $this->addFlash('success', 'Le media et son fichier ont bien été supprimés');
         return $this->redirectToRoute('admin_media_index');
     }
 }
