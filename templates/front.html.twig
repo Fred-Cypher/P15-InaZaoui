@@ -47,7 +47,7 @@
     </main>
     <footer class="py-4 text-center">
         Ina Zaoui copyright 2024©
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if app.user %}
             <div class="text-center mt-3">
                 <a href="{{ path('admin_media_index') }}" class="text-muted small">
                     <i class="fas fa-lock"></i> Administration du site
