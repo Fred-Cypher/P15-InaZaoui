@@ -27,7 +27,10 @@ class HomeController extends AbstractController
     #[Route("/guests", name: "guests")]
     public function guests(): Response
     {
-        $guests = $this->em->getRepository(User::class)->findBy(['admin' => false]);
+        $guests = $this->em->getRepository(User::class)->findBy([
+            'admin' => false,
+            'authorised' => true
+            ]);
         return $this->render('front/guests.html.twig', [
             'guests' => $guests
         ]);
@@ -36,7 +39,15 @@ class HomeController extends AbstractController
     #[Route("/guest/{id}", name: "guest")]
     public function guest(int $id): Response
     {
-        $guest = $this->em->getRepository(User::class)->find($id);
+        $guest = $this->em->getRepository(User::class)->findOneBy([
+            'id' => $id,
+            'authorised' => true
+        ]);
+
+        if (!$guest) {
+            throw $this->createNotFoundException("Cet invité n'existe pas ou n'est pas accessible");
+        }
+
         return $this->render('front/guest.html.twig', [
             'guest' => $guest
         ]);
