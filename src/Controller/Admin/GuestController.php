@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted("ROLE_ADMIN")]
 class GuestController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {}
 
     #[Route('/admin/guest', name: "admin_guest_index")]
@@ -35,6 +36,18 @@ class GuestController extends AbstractController
             'users' => $users,
             'total' => $total,
             'page' => $page
+        ]);
+    }
+
+    #[Route('/admin/guest/toggle/{id}', name: "admin_guest_toggle", methods: ['POST'])]
+    public function toggle(User $user): JsonResponse
+    {
+        $user->setAuthorised(!$user->isAuthorised());
+        $this->em->flush();
+
+        return new JsonResponse([
+            'success' => true,
+            'isAuthorised' => $user->isAuthorised()
         ]);
     }
 }
