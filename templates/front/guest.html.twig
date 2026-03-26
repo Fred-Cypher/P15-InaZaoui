@@ -10,9 +10,10 @@
                     <div class="col-4 media mb-4">
                         <img class="w-100" src="{{ asset(media.path) }}" alt="{{ media.title }}">
                     </div>
+                {% else %}
+                    <p>Cet invité n'a pas encore de médias</p>
                 {% endfor %}
             </div>
         </div>
     </div>
 {% endblock %}
-
