@@ -77,9 +77,14 @@ class MediaController extends AbstractController
     }
 
     #[Route("/admin/media/delete/{id}", name: "admin_media_delete")]
-    public function delete(Media $media): Response
+    public function delete(Request $request, Media $media): Response
     {
-        if(!$this->isGranted('ROLE_ADMIN') && !$media->getUser() !== $this->getUser()) {
+        if (!$this->isCSRFTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
+            $this->addFlash('danger', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('admin_media_index');
+        }
+
+        if(!$this->isGranted('ROLE_ADMIN') && $media->getUser() !== $this->getUser()) {
             $this->addFlash('danger', 'Action non autorisée : ce media ne vous appartient pas');
             return $this->redirectToRoute('admin_media_index');
         }

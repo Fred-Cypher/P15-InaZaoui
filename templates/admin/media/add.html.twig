@@ -6,14 +6,11 @@
         <a href="{{ path('admin_media_index') }}" class="btn btn-primary">Retour</a>
     </div>
     {{ form_errors(form) }}
-    {% for child in form.children %}
-        {{ form_errors(child) }}
-    {% endfor %}
-    {{ form_start(form) }}
-        {{ form_row(form.user) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.title) }}
         {% if is_granted('ROLE_ADMIN') %}
+            {{ form_row(form.user) }}
             {{ form_row(form.album) }}
-            {{ form_row(form.title) }}
         {% endif %}
         {{ form_row(form.file) }}
         <button type="submit" class="btn btn-primary">Ajouter</button>
