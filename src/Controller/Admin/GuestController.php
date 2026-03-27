@@ -50,4 +50,24 @@ class GuestController extends AbstractController
             'isAuthorised' => $user->isAuthorised()
         ]);
     }
+
+    #[Route('/admin/guest/delete/{id}', name: "admin_guest_delete")]
+    public function delete(Request $request, User $user): Response
+    {
+        if (!$this->isCSRFTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $this->addFlash('danger', 'Jeton de sécurité invalide.');
+            return $this->redirectToRoute('admin_guest_index');
+        }
+
+        foreach ($user->getMedias() as $media){
+            $filePath = $this->getParameter('kernel.project_dir') . '/public/uploads/' . $media->getPath();
+            if (file_exists($filePath)) unlink($filePath);
+        }
+        $this->em->remove($user);
+        $this->em->flush();
+
+        $this->addFlash('success', 'L\invité et tous ses médias ont bien été supprimés');
+
+        return $this->redirectToRoute('admin_guest_index');
+    }
 }

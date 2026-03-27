@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     switches.forEach(switchInput => {
         switchInput.addEventListener('change', function () {
             const url = this.dataset.url;
+            const userId = this.dataset.id;
+            const statusCell = document.getElementById(`status-text-${userId}`)
 
             fetch(url, {
                 method: 'POST',
@@ -18,6 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 if (data.success) {
+                    if(this.checked) {
+                        statusCell.innerHTML = '<span class="badge bg-success">Actif</span>';
+                    } else {
+                        statusCell.innerHTML = '<span class="badge bg-danger">Bloqué</span>'
+                    }
                     console.log("Statut mis à jour en base de données");
                 }
             })
