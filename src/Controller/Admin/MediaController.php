@@ -89,7 +89,7 @@ class MediaController extends AbstractController
             return $this->redirectToRoute('admin_media_index');
         }
 
-        $filePath = $this->getParameter('kernel.project_dir') . '/public/uploads/' . $media->getPath();
+        $filePath = $this->getParameter('kernel.project_dir') . '/public/' . $media->getPath();
 
         $this->em->remove($media);
         $this->em->flush();
