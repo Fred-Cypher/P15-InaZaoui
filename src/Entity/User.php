@@ -72,9 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->name;
     }
 
-    public function setName(?string $name): void
+    public function setName(?string $name): static
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -82,9 +83,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->description;
     }
 
-    public function setDescription(?string $description): void
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
+        return $this;
     }
 
     public function getMedias(): Collection
@@ -102,9 +104,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->admin;
     }
 
-    public function setAdmin(bool $admin): void
+    public function setAdmin(bool $admin): static
     {
         $this->admin = $admin;
+        return $this;
     }
 
     public function getPassword(): ?string
