@@ -66,7 +66,7 @@ class GuestController extends AbstractController
         $this->em->remove($user);
         $this->em->flush();
 
-        $this->addFlash('success', 'L\invité et tous ses médias ont bien été supprimés');
+        $this->addFlash('success', 'L\'invité et tous ses médias ont bien été supprimés');
 
         return $this->redirectToRoute('admin_guest_index');
     }
