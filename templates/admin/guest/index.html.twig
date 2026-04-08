@@ -1,6 +1,7 @@
 {% extends 'admin.html.twig' %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('js/toggle.js') }}"></script>
 {% endblock %}
 

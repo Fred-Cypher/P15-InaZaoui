@@ -34,6 +34,8 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
+            $this->addFlash('success', 'Le compte de l\'invité a bien été créé.');
+
             return $this->redirectToRoute('admin_guest_index');
         }
 
