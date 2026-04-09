@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Album;
 use App\Entity\Media;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -55,6 +56,11 @@ class AppFixtures extends Fixture
                 ->setUser($guestActive);
             $manager->persist($media);
         }
+
+        // Ajout d'un album
+        $album = new Album();
+        $album->setName('Album test');
+        $manager->persist($album);
 
         $manager->flush();
     }
