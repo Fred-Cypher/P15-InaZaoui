@@ -2,7 +2,10 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Entity\Album;
+use App\Entity\Media;
 use App\Repository\AlbumRepository;
+use App\Repository\MediaRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -52,5 +55,44 @@ class AlbumControllerTest extends WebTestCase
 
         $updatedAlbum = $albumRepository->find($albumId);
         $this->assertEquals('Album mis à jour', $updatedAlbum->getName());
+    }
+
+    public function testDeleteAlbumAndKeepMedia()
+    {
+        $client = static::createClient();
+        $entityManager = static::getContainer()->get('doctrine')->getManager();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $albumRepository = static::getContainer()->get(AlbumRepository::class);
+        $mediaRepository = static::getContainer()->get(MediaRepository::class);
+
+        $user = $userRepository->findOneByEmail('admin@test.com');
+        $client->loginUser($user);
+
+        $album = new Album();
+        $album->setName('Test album');
+        $entityManager->persist($album);
+
+        $media = new Media();
+        $media->setTitle('Photo test');
+        $media->setPath('test.jpg');
+        $media->setUser($user);
+        $media->setAlbum($album);
+        $entityManager->persist($media);
+
+        $entityManager->flush();
+
+        $albumId = $album->getId();
+        $mediaId = $media->getId();
+
+        $client->request('POST', "/admin/album/delete/$albumId");
+
+        $this->assertResponseRedirects('/admin/album');
+        $client->followRedirect();
+
+        $this->assertNull($albumRepository->find($albumId), "L'album devrait avoir été supprimé");
+
+        $updatedMedia = $mediaRepository->find($mediaId);
+        $this->assertNotNull($updatedMedia, "Le média ne doit pas être supprimé");
+        $this->assertNull($updatedMedia->getAlbum(), "Le lien vers l'album doit être NULL");
     }
 }

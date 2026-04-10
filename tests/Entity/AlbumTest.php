@@ -19,5 +19,18 @@ class AlbumTest extends TestCase
         $this->assertNull($album->getId());
     }
 
+    public function testAlbumCollection(): void
+    {
+        $album = new Album();
+        $media = new Media();
 
+        $album->addMedia($media);
+        $this->assertCount(1, $album->getMedias());
+        $this->assertContains($media, $album->getMedias());
+        $this->assertSame($album, $media->getAlbum());
+
+        $album->removeMedia($media);
+        $this->assertCount(0, $album->getMedias());
+        $this->assertNull($media->getAlbum());
+    }
 }

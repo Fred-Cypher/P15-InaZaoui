@@ -60,11 +60,20 @@ class AlbumController extends AbstractController
         return $this->render('admin/album/update.html.twig', ['form' => $form->createView()]);
     }
 
-    #[Route("/admin/album/delete/{id}", name: "admin_album_delete")]
-    public function delete(int $id): Response
+//    #[Route("/admin/album/delete/{id}", name: "admin_album_delete")]
+//    public function delete(int $id): Response
+//    {
+//        $media = $this->em->getRepository(Album::class)->find($id);
+//        $this->em->remove($media);
+//        $this->em->flush();
+//
+//        return $this->redirectToRoute('admin_album_index');
+//    }
+
+    #[Route("/admin/album/delete/{id}", name: "admin_album_delete", methods: ["POST"])]
+    public function delete(Album $album): Response
     {
-        $media = $this->em->getRepository(Album::class)->find($id);
-        $this->em->remove($media);
+        $this->em->remove($album);
         $this->em->flush();
 
         return $this->redirectToRoute('admin_album_index');
