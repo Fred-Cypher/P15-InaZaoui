@@ -57,7 +57,7 @@ class AlbumControllerTest extends WebTestCase
         $this->assertEquals('Album mis à jour', $updatedAlbum->getName());
     }
 
-    public function testDeleteAlbumAndKeepMedia()
+    public function testDeleteAlbum()
     {
         $client = static::createClient();
         $entityManager = static::getContainer()->get('doctrine')->getManager();
@@ -85,14 +85,10 @@ class AlbumControllerTest extends WebTestCase
         $mediaId = $media->getId();
 
         $client->request('POST', "/admin/album/delete/$albumId");
-
         $this->assertResponseRedirects('/admin/album');
         $client->followRedirect();
 
-        $this->assertNull($albumRepository->find($albumId), "L'album devrait avoir été supprimé");
-
-        $updatedMedia = $mediaRepository->find($mediaId);
-        $this->assertNotNull($updatedMedia, "Le média ne doit pas être supprimé");
-        $this->assertNull($updatedMedia->getAlbum(), "Le lien vers l'album doit être NULL");
+        $this->assertNull($albumRepository->find($albumId));
+        $this->assertNull($mediaRepository->find($mediaId));
     }
 }
