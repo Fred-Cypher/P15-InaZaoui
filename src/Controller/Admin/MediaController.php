@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Media;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,7 +78,7 @@ class MediaController extends AbstractController
     }
 
     #[Route("/admin/media/delete/{id}", name: "admin_media_delete")]
-    public function delete(Request $request, Media $media): Response
+    public function delete(Request $request, #[MapEntity(id: 'id')] Media $media): Response
     {
         if (!$this->isCSRFTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
             $this->addFlash('danger', 'Jeton de sécurité invalide.');

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +41,7 @@ class GuestController extends AbstractController
     }
 
     #[Route('/admin/guest/toggle/{id}', name: "admin_guest_toggle", methods: ['POST'])]
-    public function toggle(User $user): JsonResponse
+    public function toggle(#[MapEntity(id: 'id')] User $user): JsonResponse
     {
         $user->setAuthorised(!$user->isAuthorised());
         $this->em->flush();
@@ -52,7 +53,7 @@ class GuestController extends AbstractController
     }
 
     #[Route('/admin/guest/delete/{id}', name: "admin_guest_delete")]
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, #[MapEntity(id: 'id')] User $user): Response
     {
         if (!$this->isCSRFTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $this->addFlash('danger', 'Jeton de sécurité invalide.');
