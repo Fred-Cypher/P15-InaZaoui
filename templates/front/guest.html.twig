@@ -1,5 +1,9 @@
 {% extends 'front.html.twig' %}
 
+{% block meta_description %}Photographies de l'invité : {{ guest.name }}{% endblock %}
+
+{% block title %}Collection {{ guest.name }}{% endblock %}
+
 {% block front %}
     <div class="row">
         <div class="col-12">

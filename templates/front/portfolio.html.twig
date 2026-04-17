@@ -1,5 +1,11 @@
 {% extends 'front.html.twig' %}
 
+{% set page_title = album ? "- " ~ album.name %}
+
+{% block meta_description %}Porfolio {{ page_title }} d'Ina Zaoui{% endblock %}
+
+{% block title %}Portfolio {{ page_title }}{% endblock %}
+
 {% block front %}
     <div class="row">
         <div class="col-12">
@@ -29,4 +35,3 @@
         </div>
     </div>
 {% endblock %}
-
