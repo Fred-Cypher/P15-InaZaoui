@@ -25,12 +25,10 @@ class HomeController extends AbstractController
     }
 
     #[Route("/guests", name: "guests")]
-    public function guests(): Response
+    public function guests(UserRepository $userRepository): Response
     {
-        $guests = $this->em->getRepository(User::class)->findBy([
-            'admin' => false,
-            'authorised' => true
-            ]);
+        $guests = $userRepository->findAllGuestsWithMedias();
+
         return $this->render('front/guests.html.twig', [
             'guests' => $guests
         ]);
