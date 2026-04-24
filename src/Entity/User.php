@@ -136,6 +136,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    #[\Deprecated]
     public function eraseCredentials(): void
     {}
 

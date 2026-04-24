@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
     {
         // Admin creation
         $admin = new User();
-        $admin->setEmail('ina@zaoui.com')
+        $admin->setEmail('admin@test.com')
             ->setName('Ina Admin')
             ->setAdmin(true)
             ->setAuthorised(true)
