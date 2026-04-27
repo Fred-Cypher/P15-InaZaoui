@@ -1,8 +1,41 @@
-# Ina Zaoui
+# Ina Zaoui - Portfolio photographe 📷 
+___
+## 📝 Description générale :
+Projet du parcours "Développeur d'application PHP Symfony" d'OpenClassrooms.
 
-Pour se connecter avec le compte de Ina, il faut utiliser les identifiants suivants:
-- identifiant : `ina`
-- mot de passe : `password`
+**Objectif** : Refactorisation d'un site existant pour optimiser les performances (réduction drastique des requêtes SQL) et assurer sa maintenabilité (Passage sous Symfony 7 / PHP 8.1+).
 
-Vous trouverez dans le fichier `backup.zip` un dump SQL anonymisé de la base de données et toutes les images qui se trouvaient dans le dossier `public/uploads`.
-Faudrait peut être trouver une meilleure solution car le fichier est très gros, il fait plus de 1Go.
+Le site permet à la photographe Ina Zaoui de présenter ses albums et de mettre en avant de jeunes talents.
+
+## 🌍 Fonctionnalités du site : 
+* **Galeries dynamiques** : Affichage des medias enregistrés en base de données.
+* **Espace Administration** : Gestion des utilisateurs par l'administrateur (Ina Zaoui).
+* **Espace Contributeur** : Gestion des medias par les utilisateurs propriétaires.
+
+## 🛠️ Installation :
+* **Cloner le projet**.
+* **Installer les dépendances :** Dans un terminal, placez-vous dans le dossier, utilisez la commande ```composer install```.
+* **Configurer l'environnement :** Dupliquez le fichier .env en .env.local et adaptez la variable : DATABASE_URL.
+* **Initialiser la base de données :** Utilisez les commandes ```php bin/console doctrine:database:create```, puis ```php bin/console make:migration```et enfin ```php bin/console doctrine:migrations:migrate```.
+* **Charger des données de démonstrations :** Le projet inclut un jeu de données complet via **DoctrineFixtures**, pour remplir votre base de données locale avec des utilisateurs aux rôles variés et des galeries d'images dynamiques (via Picsum), lancez la commande ```php bin/console doctrine:fixtures:load```. ⚠️ Cette commande nécessite une connexion internet pour récupérer les images de démonstration.
+___
+## 🔐 Identifiants de test
+Une fois les fixtures chargées, vous pouvez utiliser les comptes suivants :
+Admin : ina@zaoui.com / password
+Invité actif : active@test.com / password
+---
+## 💻 Utilisation :
+* Dans votre IDE, lancez le serveur local avec la commande ```symfony serve```.
+___
+## 🧪 Environnement de tests : 
+* **Configurer l'environnement :** Adaptez le DATABASE_URL dans le fichier .env.test.
+* **Initialiser la base de données :** Créez une base de données de tests avec les commandes suivantes : ```php bin/console doctrine:database:create --env=test``` et ```php bin/console doctrine:migrations:migrate --env=test```
+* **Charger des données de démonstrations :** ```php bin/console doctrine:fixtures:load --env=test```, comme pour la base de données ci-dessus, cette commande nécessite une connexion internet pour récupérer les images
+* **Exécution des tests :** Lancez la suite de tests avec la commande ```php bin/phpunit```
+---
+## 🔍 Outils / logiciels nécessaires
+* PostgreSQL
+* IDE : VSC, PhpStorm...
+---
+
+📌 Stack technique :  PHP8.1, Symfony7, PostgreSQL

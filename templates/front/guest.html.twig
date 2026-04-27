@@ -1,5 +1,9 @@
 {% extends 'front.html.twig' %}
 
+{% block meta_description %}Photographies de l'invité : {{ guest.name }}{% endblock %}
+
+{% block title %}Collection {{ guest.name }}{% endblock %}
+
 {% block front %}
     <div class="row">
         <div class="col-12">
@@ -10,9 +14,10 @@
                     <div class="col-4 media mb-4">
                         <img class="w-100" src="{{ asset(media.path) }}" alt="{{ media.title }}">
                     </div>
+                {% else %}
+                    <p>Cet invité n'a pas encore de médias</p>
                 {% endfor %}
             </div>
         </div>
     </div>
 {% endblock %}
-

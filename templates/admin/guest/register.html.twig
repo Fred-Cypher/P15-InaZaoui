@@ -1,0 +1,53 @@
+{% extends 'admin.html.twig' %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block title %}Enregistrer un utilisateur{% endblock %}
+
+{% block admin %}
+    <div class="col-md-10 col-lg-8">
+        <div class="p-3">
+            <h1>Inscrire un nouvel invité</h1>
+        </div>
+        <div class="p-4">
+            {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.email, 'Adresse Email', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control' ~ (registrationForm.email.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'exemple@mail.com'}}) }}
+                <div class="invalid-feedback">{{ form_errors(registrationForm.email) }}</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.name, 'Nom complet', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control' ~ (registrationForm.name.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Jean Dupont'}}) }}
+                <div class="invalid-feedback">{{ form_errors(registrationForm.name) }}</div>
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control' ~ (registrationForm.plainPassword.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': '••••••••'}}) }}
+                <div class="invalid-feedback">{{ form_errors(registrationForm.plainPassword) }}</div>
+                <small class="text-muted text-center d-block mt-2">Le mot de passe doit contenir au moins 6 caractères.</small>
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.description, 'Description', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(registrationForm.description, {'attr': {'class': 'form-control' ~ (registrationForm.description.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Description rapide de l\'invité'}}) }}
+                <div class="invalid-feedback">{{ form_errors(registrationForm.description) }}</div>
+            </div>
+
+            <div class="">
+                <button type="submit" class="btn btn-primary">Créer le compte</button>
+            </div>
+
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,13 @@ framework:
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false
+    handle_all_throwables: true
+    annotations:
+        enabled: false
+
+    profiler:
+        only_exceptions: false
+        collect_serializer_data: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.

@@ -5,25 +5,28 @@ namespace App\Entity;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: "SEQUENCE")]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "medias", fetch: "EAGER")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "medias")]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Album::class, fetch: "EAGER")]
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: "medias")]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?Album $album = null;
 
     #[ORM\Column]
-    private string $path;
+    private ?string $path = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le titre est obligatoire.")]
     private string $title;
 
     private ?UploadedFile $file = null;
@@ -38,9 +41,10 @@ class Media
         return $this->user;
     }
 
-    public function setUser(?User $user): void
+    public function setUser(?User $user): static
     {
         $this->user = $user;
+        return $this;
     }
 
     public function getPath(): string
@@ -48,9 +52,10 @@ class Media
         return $this->path;
     }
 
-    public function setPath(string $path): void
+    public function setPath(string $path): static
     {
         $this->path = $path;
+        return $this;
     }
 
     public function getTitle(): string
@@ -58,9 +63,10 @@ class Media
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title): static
     {
         $this->title = $title;
+        return $this;
     }
 
     public function getFile(): ?UploadedFile
@@ -78,8 +84,9 @@ class Media
         return $this->album;
     }
 
-    public function setAlbum(?Album $album): void
+    public function setAlbum(?Album $album): static
     {
         $this->album = $album;
+        return $this;
     }
 }
