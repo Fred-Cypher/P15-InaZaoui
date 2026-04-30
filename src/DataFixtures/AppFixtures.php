@@ -12,7 +12,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class AppFixtures extends Fixture
 {
-    private $hasher;
+    private UserPasswordHasherInterface $hasher;
 
     public function __construct(UserPasswordHasherInterface $hasher)
     {

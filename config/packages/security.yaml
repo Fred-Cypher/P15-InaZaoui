@@ -6,9 +6,6 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
-#            memory:
-#                users:
-#                    ina: { password: '$2y$13$7JS0ehfU8vZhB3Q8o1sPGuoQxkiPGXRGgrAizmNfI5Sgy.Dqt9xoW', roles: ['ROLE_ADMIN'] }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,7 +20,7 @@ security:
                 default_target_path: home
             logout:
                 path: admin_logout
-                target: admin_login
+                target: home
             user_checker: App\Security\UserChecker
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER

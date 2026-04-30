@@ -18,10 +18,15 @@ Merci de l'intérêt que vous portez au projet ! Pour garantir la qualité du co
 
 ## 🛠️ Workflow de développement
 
-1. **Forkez** le projet ou créez une nouvelle branche (`feature/nom-de-la-fonctionnalite`).
-2. Installez l'environnement de développement (voir le [README.md](./README.md)).
-3. Codez votre fonctionnalité ou correction de bug.
-4. Ajoutez les tests nécessaires à la nouvelle fonctionnalité
+1. **Forkez** le projet pour créer une copie sur votre compte GitHub.
+2. **Clonez** votre fork sur votre machine locale.
+3. **Installez** l'environnement de développement (voir le [README.md](./README.md)).
+4. **Créez** une nouvelle branche pour vos modifications sous ce format ```(feature/feature-name)```, en anglais.
+5. **Codez** votre fonctionnalité ou correction de bug.
+6. **Commitez** vos changements.💡 Note : Merci de rédiger vos messages de commit en anglais.
+7. **Ajoutez les tests** nécessaires et vérifiez qu'ils passent avec php bin/phpunit.
+8. **Pushez** votre branche sur votre fork et ouvrez une Pull Request vers la branche develop du projet d'origine. 
+
 
 ## 🎨 Standards de Code
 
