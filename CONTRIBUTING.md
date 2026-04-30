@@ -5,16 +5,16 @@ Merci de l'intérêt que vous portez au projet ! Pour garantir la qualité du co
 ## 🐛 Signaler un bug ou un problème
 * **Issue** : Créez une Issue avec un titre clair : "Bug - Titre du bug"
 * **Description** : Décrivez précisément le bug que vous avez observé : 
-   - étapes pour recréer le bug 
-   - réponse reçue 
-   - précisez votre environnement (OS, navigateur...)
-   - n'hésitez pas à ajouter des captures d'écran ou des logs si vous le jugez pertinent 
+    - Étapes pour recréer le bug 
+    - Réponse reçue 
+    - Précisez votre environnement (OS, navigateur...)
+    - N'hésitez pas à ajouter des captures d'écran ou des logs si vous le jugez pertinent 
 
 ## 💡 Proposer de nouvelles fonctionnalités
 * **Issue** : Créez une Issue avec le titre de la fonctionnalité proposée : "Evolution - Fonctionnalité proposée"
 * **Description** : 
     - Détaillez le besoin et la fonctionnalité qui le résoudrait, 
-    - proposez des solutions d'implémentation
+    - Proposez des solutions d'implémentation
 
 ## 🛠️ Workflow de développement
 
