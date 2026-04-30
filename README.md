@@ -1,3 +1,5 @@
+[![.github/workflows/ci.yml](https://github.com/Fred-Cypher/P15-InaZaoui/actions/workflows/ci.yml/badge.svg)](https://github.com/Fred-Cypher/P15-InaZaoui/actions/workflows/ci.yml)
+
 # Ina Zaoui - Portfolio photographe 📷 
 ___
 ## 📝 Description générale :
@@ -21,8 +23,8 @@ Le site permet à la photographe Ina Zaoui de présenter ses albums et de mettre
 ___
 ## 🔐 Identifiants de test
 Une fois les fixtures chargées, vous pouvez utiliser les comptes suivants :
-Admin : ina@zaoui.com / password
-Invité actif : active@test.com / password
+* Admin : ina@zaoui.com / password
+* Invité actif : active@test.com / password
 ---
 ## 💻 Utilisation :
 * Dans votre IDE, lancez le serveur local avec la commande ```symfony serve```.
