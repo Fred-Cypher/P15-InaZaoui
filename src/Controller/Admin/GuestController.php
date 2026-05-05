@@ -60,12 +60,19 @@ class GuestController extends AbstractController
             return $this->redirectToRoute('admin_guest_index');
         }
 
+        $filePaths = [];
         foreach ($user->getMedias() as $media){
-            $filePath = $this->getParameter('kernel.project_dir') . '/public/uploads/' . $media->getPath();
-            if (file_exists($filePath)) unlink($filePath);
+            $filePaths[] = $this->getParameter('kernel.project_dir') . '/public/' . $media->getPath();
         }
+
         $this->em->remove($user);
         $this->em->flush();
+
+        foreach ($filePaths as $path) {
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
 
         $this->addFlash('success', 'L\'invité et tous ses médias ont bien été supprimés');
 
