@@ -42,6 +42,16 @@ class MediaControllerTest extends WebTestCase
             unlink($photoPath);
         }
 
+        $mediaRepository = static::getContainer()->get(MediaRepository::class);
+        $media = $mediaRepository->findOneBy(['title' => 'Ma photo de test']);
+
+        if ($media) {
+            $uploadedFilePath = $projectRoot . '/public/' . $media->getPath();
+            if (file_exists($uploadedFilePath)) {
+                unlink($uploadedFilePath);
+            }
+        }
+
         $this->assertResponseRedirects('/admin/media');
         $client->followRedirect();
         $this->assertSelectorTextContains('.alert-success', 'L\'image a bien été ajoutée');
