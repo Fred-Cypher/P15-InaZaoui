@@ -22,7 +22,7 @@ class MediaControllerTest extends WebTestCase
 
         $photoPath = $projectRoot . '/tests/fixtures/test_upload.jpg';
         if (!file_exists(dirname($photoPath))) {
-            mkdir(dirname($photoPath), 0777, true);
+            mkdir(dirname($photoPath), 0755, true);
         }
         $image = imagecreatetruecolor(10, 10);
         imagejpeg($image, $photoPath);

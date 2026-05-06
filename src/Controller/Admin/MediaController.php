@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Media;
 use App\Form\MediaType;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -43,9 +45,13 @@ class MediaController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route("/admin/media/add", name: "admin_media_add")]
     public function add(
         Request $request,
+        PictureService $pictureService,
             ): Response
     {
         $media = new Media();
@@ -61,8 +67,7 @@ class MediaController extends AbstractController
                     $media->setUser($this->getUser());
                 }
 
-                $newFileName = md5(uniqid()) . '.' . $file->guessExtension();
-                $file->move($this->getParameter('kernel.project_dir') . '/public/uploads', $newFileName);
+                $newFileName = $pictureService->convertToWebp($file);
                 $media->setPath('uploads/' . $newFileName);
 
                 $this->em->persist($media);
