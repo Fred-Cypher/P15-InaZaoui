@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MediaController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
     }
     #[Route("/admin/media", name: "admin_media_index")]

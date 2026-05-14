@@ -5,8 +5,9 @@
     <script src="{{ asset('js/toggle.js') }}"></script>
 {% endblock %}
 
+{% block title %}Administration - Utilisateurs{% endblock %}
+
 {% block admin %}
-    Affichage liste des invités
     <div class="d-flex justify-content-between align-items-center">
         <h1>Utilisateurs</h1>
         <a href="{{ path('admin_register') }}" class="btn btn-primary">Ajouter</a>

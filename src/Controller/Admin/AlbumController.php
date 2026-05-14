@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[isGranted("ROLE_ADMIN")]
 class AlbumController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
     }
     #[Route("/admin/album", name: "admin_album_index")]
