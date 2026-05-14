@@ -17,3 +17,9 @@
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
+
+# On autorise le dossier var mais on ignore tout son contenu...
+!var/
+var/*
+# ...sauf le dossier coverage qu'on veut absolument garder
+!var/coverage/

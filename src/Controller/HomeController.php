@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Album;
-use App\Entity\Media;
 use App\Entity\User;
 use App\Repository\AlbumRepository;
 use App\Repository\MediaRepository;
@@ -15,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
     }
     #[Route("/", name: "home")]

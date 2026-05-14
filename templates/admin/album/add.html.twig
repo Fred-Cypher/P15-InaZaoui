@@ -1,5 +1,7 @@
 {% extends 'admin.html.twig' %}
 
+{% block title %}Ajouter un album{% endblock %}
+
 {% block admin %}
     <div class="d-flex justify-content-between align-items-center">
         <h1>Albums</h1>
@@ -10,4 +12,3 @@
         <button type="submit" class="btn btn-primary">Ajouter</button>
     {{ form_end(form) }}
 {% endblock %}
-

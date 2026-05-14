@@ -1,5 +1,7 @@
 {% extends 'admin.html.twig' %}
 
+{% block title %}Administration - Medias{% endblock %}
+
 {% block admin %}
     <div class="d-flex justify-content-between align-items-center">
         <h1>Medias</h1>
@@ -20,7 +22,7 @@
         <tbody>
             {% for media in medias %}
                 <tr>
-                    <td><img src="{{ asset(media.path) }}" width="75" /></td>
+                    <td><img src="{{ asset(media.path) }}" width="75"  alt=" {{ media.title }}"/></td>
                     <td>{{ media.title }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>{{ media.user.name }}</td>

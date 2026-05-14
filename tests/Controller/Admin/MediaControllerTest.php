@@ -22,7 +22,7 @@ class MediaControllerTest extends WebTestCase
 
         $photoPath = $projectRoot . '/tests/fixtures/test_upload.jpg';
         if (!file_exists(dirname($photoPath))) {
-            mkdir(dirname($photoPath), 0777, true);
+            mkdir(dirname($photoPath), 0755, true);
         }
         $image = imagecreatetruecolor(10, 10);
         imagejpeg($image, $photoPath);
@@ -40,6 +40,16 @@ class MediaControllerTest extends WebTestCase
 
         if (file_exists($photoPath)) {
             unlink($photoPath);
+        }
+
+        $mediaRepository = static::getContainer()->get(MediaRepository::class);
+        $media = $mediaRepository->findOneBy(['title' => 'Ma photo de test']);
+
+        if ($media) {
+            $uploadedFilePath = $projectRoot . '/public/' . $media->getPath();
+            if (file_exists($uploadedFilePath)) {
+                unlink($uploadedFilePath);
+            }
         }
 
         $this->assertResponseRedirects('/admin/media');

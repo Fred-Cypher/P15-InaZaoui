@@ -26,7 +26,6 @@ class GuestControllerTest extends WebTestCase
         $this->assertJson($client->getResponse()->getContent());
 
         $crawler = $client->request('GET', '/admin/guest');
-//        $form = $crawler->selectButton('Supprimer')->form();
         $form = $crawler->filter("form[action*='/admin/guest/delete/$targetId']")->selectButton('Supprimer')->form();
         $client->submit($form);
 
