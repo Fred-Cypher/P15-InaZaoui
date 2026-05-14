@@ -38,6 +38,11 @@ ___
 * **Charger des données de démonstrations :** ```php bin/console doctrine:fixtures:load --env=test```, ⚠️ comme pour la base de données au-dessus, cette commande nécessite une connexion internet pour récupérer les images
 * **Exécution des tests :** Lancez la suite de tests avec la commande ```php bin/phpunit```
 ---
+## 📊 Qualité du code
+Le rapport de couverture de code est disponible dans le dépôt :
+- Chemin : `var/coverage/index.html`
+- Taux de couverture actuel : > 80%
+---
 ## 🔍 Outils / logiciels nécessaires
 * PostgreSQL
 * IDE : VSC, PhpStorm...
