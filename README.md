@@ -17,8 +17,8 @@ Le site permet à la photographe Ina Zaoui de présenter ses albums et de mettre
 ## 🛠️ Installation :
 * **Cloner le projet**.
 * **Installer les dépendances :** Dans un terminal, placez-vous dans le dossier, utilisez la commande ```composer install```.
-* **Configurer l'environnement :** Dupliquez le fichier .env en .env.local et adaptez la variable : DATABASE_URL.
-* **Initialiser la base de données :** Utilisez les commandes ```php bin/console doctrine:database:create```, puis ```php bin/console make:migration```et enfin ```php bin/console doctrine:migrations:migrate```.
+* **Configurer l'environnement :** Dupliquez le fichier .env et renommer la copie en .env.local et adaptez la variable : DATABASE_URL.
+* **Initialiser la base de données :** Utilisez les commandes ```php bin/console doctrine:database:create```, puis ```php bin/console doctrine:migrations:migrate```.
 * **Charger des données de démonstration :** Le projet inclut un jeu de données complet via **DoctrineFixtures**, pour remplir votre base de données locale avec des utilisateurs test et des galeries d'images dynamiques (via Picsum), lancez la commande ```php bin/console doctrine:fixtures:load```. ⚠️ Cette commande nécessite une connexion internet pour récupérer les images de démonstration.
 ___
 ## 🔐 Identifiants de test
