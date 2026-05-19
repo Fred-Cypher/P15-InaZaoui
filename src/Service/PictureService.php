@@ -37,7 +37,7 @@ class PictureService
         $path = $this->params->get('uploads_directory') . $folder;
 
         if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+            mkdir($path, 0755, true);
         }
 
         imagewebp($pictureSource, $path . '/' . $newFileName, 80);
